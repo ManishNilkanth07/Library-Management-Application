@@ -1,7 +1,8 @@
 package com.management.library_management_system.DAO;
 
+import com.management.library_management_system.Utils.DBConnection;
 import com.management.library_management_system.model.Book;
-import com.management.librarymanagement.Utils.DBConnection;
+ 
  
 import java.sql.Connection;
 import java.sql.PreparedStatement;

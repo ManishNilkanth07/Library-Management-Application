@@ -1,8 +1,9 @@
 package com.management.library_management_system.DAO;
 
 
+import com.management.library_management_system.Utils.DBConnection;
 import com.management.library_management_system.model.Admin;
-import com.management.librarymanagement.Utils.DBConnection;
+ 
  
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,6 +21,8 @@ public class AdminDAO {
     private static final String UPDATEQUERY = "UPDATE admin SET name=?,address=?,library_name=? WHERE id=?";
 
     private static final String DELETQUERY = "DELETE from admin where id=?";
+    
+    private static final String LOGINQUERY = "SELECT * from admin where membership_number=? and password=?";
 
     public int createAdmin(Admin admin) {
         Connection connection = null;
@@ -46,6 +49,36 @@ public class AdminDAO {
         }
 
         return 0;
+    }
+    
+    public Admin loginAdmin(String membershipNumber, String password)
+    {
+        try(Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(LOGINQUERY))
+        {
+            statement.setString(1, membershipNumber);
+            statement.setString(2, password);
+            
+            try(ResultSet set = statement.executeQuery())
+            {
+                if(set.next())
+                {
+                    return new Admin.AdminBuilder()
+                            .setAdminId(set.getInt("admin_id"))
+                            .setName(set.getString("name"))
+                            .setEmail(set.getString("email"))
+                            .setPassword(set.getString("password"))
+                            .setRole(set.getString("role"))
+                            .setLibraryName(set.getString("library_name"))
+                            .setMembershipNumber(set.getString("membership_number"))
+                            .setAddress(set.getString("address"))
+                            .build();
+                }
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE,"error occur during admin login", ex);
+        }
+        return null;
     }
 
     public Admin getAdminById(int adminId) {

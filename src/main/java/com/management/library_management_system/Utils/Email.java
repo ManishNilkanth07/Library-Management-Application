@@ -1,7 +1,6 @@
  
-package com.management.librarymanagement.Utils;
+package com.management.library_management_system.Utils;
 
- 
 public class Email {
     
 }

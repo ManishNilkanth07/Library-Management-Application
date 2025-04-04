@@ -1,7 +1,8 @@
 package com.management.library_management_system.DAO;
 
+import com.management.library_management_system.Utils.DBConnection;
 import com.management.library_management_system.model.Issue;
-import com.management.librarymanagement.Utils.DBConnection;
+ 
  
 import java.sql.Connection;
 import java.sql.Date;
@@ -67,7 +68,7 @@ public class IssueDAO {
         return issues;
     }
 
-    public int createIssue(Issue issue) throws SQLException {
+    public int issueBook(Issue issue) throws SQLException {
         Connection connection = null;
 
         PreparedStatement statement = null;

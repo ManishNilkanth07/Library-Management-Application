@@ -12,7 +12,7 @@
         <jakartaee>10.0.0</jakartaee>
     </properties>
     
-     <dependencies>
+    <dependencies>
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
@@ -32,6 +32,12 @@
             <version>3.1.0</version>  
             <scope>provided</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
+            <version>2.0.0</version>
+        </dependency>
 
         <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
@@ -47,7 +53,7 @@
         </dependency>
 
     </dependencies>
-   <build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

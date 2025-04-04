@@ -1,7 +1,8 @@
 package com.management.library_management_system.DAO;
 
+import com.management.library_management_system.Utils.DBConnection;
 import com.management.library_management_system.model.Student;
-import com.management.librarymanagement.Utils.DBConnection;
+ 
  
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,6 +21,7 @@ public class StudentDAO {
 
     private static final String DELETQUERY = "DELETE from student where id=?";
 
+    private static final String LOGINQUERY = "SELECT * from student where membership_number=? and password=?";
     public int createStudent(Student student) {
         
         Connection connection = null;
@@ -138,9 +140,40 @@ public class StudentDAO {
         return 0;
     }
     
+    public Student loginStudent(String membershipNumber,String password)
+    {
+        try(Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(LOGINQUERY);)
+        {
+            statement.setString(1, membershipNumber);
+            statement.setString(2, password);
+            
+            try(ResultSet set = statement.executeQuery())
+            {
+                if(set.next())
+                {
+                    return new Student.StudentBuilder()
+                            .setStudentId(set.getInt("student_id"))
+                            .setName(set.getString("name"))
+                            .setEmail(set.getString("email"))
+                            .setPassword(set.getString("password"))
+                            .setRole(set.getString("role"))
+                            .setMembershipNumber(set.getString("membership_number"))
+                            .build();
+                   
+                }
+            }
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(StudentDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public String getMembershipNumber(String name)
     {
         int number = (int) (Math.random() * 10000);
         return name.substring(0, Math.min(3, name.length())) + number;
     }
+    
+    
 }
