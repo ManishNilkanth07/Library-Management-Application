@@ -22,6 +22,7 @@ public class StudentDAO {
     private static final String DELETQUERY = "DELETE from student where id=?";
 
     private static final String LOGINQUERY = "SELECT * from student where membership_number=? and password=?";
+    
     public int createStudent(Student student) {
         
         Connection connection = null;

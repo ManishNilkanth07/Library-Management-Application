@@ -55,7 +55,8 @@ public class AdminDAO {
     {
         try(Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(LOGINQUERY))
         {
-            statement.setString(1, membershipNumber);
+            statement.setString(1, membershipNumber)
+                    ;
             statement.setString(2, password);
             
             try(ResultSet set = statement.executeQuery())

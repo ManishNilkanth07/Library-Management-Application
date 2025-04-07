@@ -13,10 +13,10 @@ import java.util.logging.Logger;
  
 
  
-@WebServlet(name = "NewServlet", urlPatterns = {"/NewServlet"})
+@WebServlet(name = "ParkingSlotServlet", urlPatterns = {"/ParkingSlotServlet"})
 public class ParkingSlotServlet extends HttpServlet {
 
-    private ParkingSlotDAO parkingSlotDao;
+    private final ParkingSlotDAO parkingSlotDao;
     
     public ParkingSlotServlet()
     {
@@ -52,6 +52,15 @@ public class ParkingSlotServlet extends HttpServlet {
 
     private void deleteParkingSlot(HttpServletRequest request, HttpServletResponse response) {
         
+        int slotId = Integer.parseInt(request.getParameter("slotId"));
+        
+        parkingSlotDao.DeleteParkingSlot(slotId);
+        
+        try {
+            response.sendRedirect("adminDashboard.jsp");
+        } catch (IOException ex) {
+            Logger.getLogger(ParkingSlotServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 

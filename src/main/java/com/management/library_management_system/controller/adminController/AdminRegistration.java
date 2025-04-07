@@ -2,7 +2,6 @@ package com.management.library_management_system.controller.adminController;
 
 import com.management.library_management_system.DAO.AdminDAO;
 import com.management.library_management_system.Utils.Validation;
-import com.management.library_management_system.controller.studentController.StudentRegistration;
 import com.management.library_management_system.model.Admin;
 
 import java.io.IOException;
@@ -39,25 +38,27 @@ public class AdminRegistration extends HttpServlet {
         String libraryName = request.getParameter("libraryName");
 
         if (Validation.isValidName(name) && Validation.isValidEmail(email) && Validation.isValidPassword(password)) {
-            try {
-                Admin admin = new Admin.AdminBuilder()
-                        .setName(name)
-                        .setEmail(email)
-                        .setPassword(password)
-                        .setAddress(address)
-                        .setLibraryName(libraryName)
-                        .setRole("admin".equals(role) ? role : "admin")
-                        .build();
-                adminDao.createAdmin(admin);
-                response.sendRedirect("index.html");
-            } 
-            catch (IOException e) {
-                response.getWriter().print(e);
-                Logger.getLogger(StudentRegistration.class.getName()).log(Level.SEVERE, null, e);
-            }
+            Admin admin = new Admin.AdminBuilder()
+                    .setName(name)
+                    .setEmail(email)
+                    .setPassword(password)
+                    .setAddress(address)
+                    .setLibraryName(libraryName)
+                    .setRole("admin".equals(role) ? role : "admin")
+                    .build();
+            int adminId = adminDao.createAdmin(admin);
 
+            if (adminId != 0) {
+                try {
+                    response.sendRedirect("adminLogin.jsp");
+                } catch (IOException ex) {
+                    Logger.getLogger(AdminRegistration.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
 
     }
 
 }
+
+

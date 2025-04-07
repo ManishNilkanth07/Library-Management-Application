@@ -17,9 +17,8 @@ import java.util.logging.Logger;
 public class StudentRegistration extends HttpServlet {
 
     private final StudentDAO studentDao;
-    
-    public StudentRegistration()
-    {
+
+    public StudentRegistration() {
         this.studentDao = new StudentDAO();
     }
 
@@ -34,25 +33,25 @@ public class StudentRegistration extends HttpServlet {
         String password = request.getParameter("password");
 
         String role = request.getParameter("role");
-        
 
         if (Validation.isValidName(name) && Validation.isValidEmail(email) && Validation.isValidPassword(password)) {
-            try {
-                Student student = new Student.StudentBuilder()
-                        .setName(name)
-                        .setEmail(email)
-                        .setPassword(password)
-                        .setRole(role)
-                        .build();
-                studentDao.createStudent(student);
-                response.sendRedirect("index.html");
-            } 
-            catch (IOException e) {
-                response.getWriter().print(e);
-                Logger.getLogger(StudentRegistration.class.getName()).log(Level.SEVERE, null, e);
+            Student student = new Student.StudentBuilder()
+                    .setName(name)
+                    .setEmail(email)
+                    .setPassword(password)
+                    .setRole(role)
+                    .build();
+            int studentId = studentDao.createStudent(student);
+            if (studentId != 0) {
+                try {
+                    response.sendRedirect("studentLogin.jsp");
+                } catch (IOException ex) {
+                    Logger.getLogger(StudentRegistration.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
-
     }
 
 }
+
+
