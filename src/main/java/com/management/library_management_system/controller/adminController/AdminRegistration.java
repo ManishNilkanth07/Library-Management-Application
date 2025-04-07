@@ -55,6 +55,14 @@ public class AdminRegistration extends HttpServlet {
                     Logger.getLogger(AdminRegistration.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            else
+            {
+                response.sendRedirect("adminRegistration.jsp? error = Registration faild.");
+            }
+        }
+        else
+        {
+            response.sendRedirect("adminRegistration.jsp?error = invalid credentials.");
         }
 
     }

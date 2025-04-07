@@ -4,7 +4,7 @@ import java.util.regex.*;
 public class Validation {
     
      public static boolean isValidName(String name) {
-        String namePattern = "^[a-zA-Z\\s]+$";  
+        String namePattern = "^[a-zA-Z]+(?:\\s[a-zA-Z]+)*$"; 
         Pattern pattern = Pattern.compile(namePattern);
         Matcher matcher = pattern.matcher(name);
         return matcher.matches();

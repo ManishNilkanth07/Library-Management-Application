@@ -45,5 +45,9 @@ public class AdminLogin extends HttpServlet {
                 }
             }
         }
+        else
+        {
+             response.sendRedirect("adminLogin.jsp?error=Invalid Credentials");
+        }
     }
 }
