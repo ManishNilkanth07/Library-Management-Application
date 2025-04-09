@@ -1,6 +1,5 @@
- 
 package com.management.library_management_system.controller.adminController;
- 
+
 import com.management.library_management_system.DAO.AdminDAO;
 import com.management.library_management_system.Utils.Validation;
 import com.management.library_management_system.model.Admin;
@@ -9,14 +8,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+ 
 
 @WebServlet(name = "AdminLogin", urlPatterns = {"/AdminLogin"})
 public class AdminLogin extends HttpServlet {
 
-     private final AdminDAO adminDao;
+    private final AdminDAO adminDao;
 
     public AdminLogin() {
         this.adminDao = new AdminDAO();
@@ -31,23 +30,21 @@ public class AdminLogin extends HttpServlet {
         if (Validation.isValidPassword(password) && Validation.isValidMembershipNumber(membershipNumber)) {
             Admin admin = adminDao.loginAdmin(membershipNumber, password);
 
-            if (admin != null) {
-                try {
-                    response.sendRedirect("adminDashboard.jsp");
-                } catch (IOException ex) {
-                    Logger.getLogger(AdminLogin.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                try {
-                    response.sendRedirect("adminLogin.jsp?error=Invalid Credentials");
-                } catch (IOException ex) {
-                    Logger.getLogger(AdminLogin.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            if (admin != null) 
+            {
+                HttpSession session = request.getSession(true);
+                session.setAttribute("adminId", admin.getAdminId());
+//                response.sendRedirect("adminDashboard.jsp");
+                response.sendRedirect("BookStatsServlet");
+            } 
+            else
+            {
+                response.sendRedirect("adminLogin.jsp?error=Invalid Credentials");
             }
-        }
-        else
+        } 
+        else 
         {
-             response.sendRedirect("adminLogin.jsp?error=Invalid Credentials");
+            response.sendRedirect("adminLogin.jsp?error=Invalid Credentials");
         }
     }
 }

@@ -1,75 +1,75 @@
- body {
-            font-family: 'Roboto', sans-serif;
-        }
+body {
+    font-family: 'Roboto', sans-serif;
+}
 
-        .navbar {
-            background-color: #2c3e50;
-        }
+.navbar {
+    background-color: #2c3e50;
+}
 
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 24px;
-        }
+.navbar-brand {
+    font-weight: bold;
+    font-size: 24px;
+}
 
-        .jumbotron {
-            background-color: #f8f9fa;
-            border-radius: 15px;
-            padding: 40px;
-        }
+.jumbotron {
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    padding: 40px;
+}
 
-        .jumbotron h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #2c3e50;
-        }
+.jumbotron h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
 
-        .jumbotron p {
-            font-size: 1.2rem;
-            color: #7f8c8d;
-        }
+.jumbotron p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+}
 
-        .btn-lg {
-            font-size: 1.2rem;
-            padding: 15px 30px;
-            border-radius: 25px;
-        }
+.btn-lg {
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    border-radius: 25px;
+}
 
-        .btn-primary {
-            background-color: #3498db;
-            border-color: #3498db;
-        }
+.btn-primary {
+    background-color: #3498db;
+    border-color: #3498db;
+}
 
-        .btn-primary:hover {
-            background-color: #2980b9;
-            border-color: #2980b9;
-        }
+.btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
 
-        .btn-secondary {
-            background-color: #95a5a6;
-            border-color: #95a5a6;
-        }
+.btn-secondary {
+    background-color: #95a5a6;
+    border-color: #95a5a6;
+}
 
-        .btn-secondary:hover {
-            background-color: #7f8c8d;
-            border-color: #7f8c8d;
-        }
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+    border-color: #7f8c8d;
+}
 
-        .footer {
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px 0;
-        }
+.footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px 0;
+}
 
-        .footer p {
-            margin: 0;
-        }
+.footer p {
+    margin: 0;
+}
 
-        .role-selection {
-            background-color: #ecf0f1;
-            border-radius: 15px;
-            padding: 30px 0;
-        }
+.role-selection {
+    background-color: #ecf0f1;
+    border-radius: 15px;
+    padding: 30px 0;
+}
 
-        .role-selection .btn {
-            margin: 10px;
-        }
+.role-selection .btn {
+    margin: 10px;
+}

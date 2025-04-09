@@ -11,9 +11,13 @@ com\management\library_management_system\controller\studentController\StudentReg
 com\management\library_management_system\controller\renewalController\RenewalServlet.class
 com\management\library_management_system\model\ParkingSlot.class
 com\management\library_management_system\model\Book.class
+com\management\library_management_system\Utils\BookData.class
 com\management\library_management_system\controller\ParkingSlotController\ParkingSlotServlet.class
 com\management\library_management_system\model\Admin$AdminBuilder.class
 com\management\library_management_system\model\Student$StudentBuilder.class
+com\management\library_management_system\controller\bookController\GetAllBooksServlet.class
+com\management\library_management_system\controller\bookController\BookStatsServlet.class
+com\management\library_management_system\controller\issueController\BooksIssuedServlet.class
 com\management\library_management_system\model\Book$BookBuilder.class
 com\management\library_management_system\controller\studentController\StudentLogin.class
 com\management\library_management_system\model\ParkingSlot$ParkingSlotBuilder.class

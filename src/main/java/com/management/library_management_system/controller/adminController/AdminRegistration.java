@@ -10,8 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+ 
 
 @WebServlet(name = "AdminRegistration", urlPatterns = {"/AdminRegistration"})
 public class AdminRegistration extends HttpServlet {
@@ -26,15 +25,10 @@ public class AdminRegistration extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String name = request.getParameter("name");
-
         String email = request.getParameter("email");
-
         String password = request.getParameter("password");
-
         String role = request.getParameter("role");
-
         String address = request.getParameter("address");
-
         String libraryName = request.getParameter("libraryName");
 
         if (Validation.isValidName(name) && Validation.isValidEmail(email) && Validation.isValidPassword(password)) {
@@ -46,27 +40,21 @@ public class AdminRegistration extends HttpServlet {
                     .setLibraryName(libraryName)
                     .setRole("admin".equals(role) ? role : "admin")
                     .build();
+            
             int adminId = adminDao.createAdmin(admin);
 
-            if (adminId != 0) {
-                try {
-                    response.sendRedirect("adminLogin.jsp");
-                } catch (IOException ex) {
-                    Logger.getLogger(AdminRegistration.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            else
+            if (adminId != 0) 
             {
-                response.sendRedirect("adminRegistration.jsp? error = Registration faild.");
+                response.sendRedirect("adminLogin.jsp");
+            } 
+            else 
+            {
+                response.sendRedirect("adminRegistration.jsp?error=Registration failed.");
             }
         }
         else
         {
-            response.sendRedirect("adminRegistration.jsp?error = invalid credentials.");
+            response.sendRedirect("adminRegistration.jsp?error=Invalid credentials.");
         }
-
     }
-
 }
-
-

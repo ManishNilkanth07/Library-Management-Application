@@ -1,6 +1,9 @@
 C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\controller\adminController\AdminLogin.java
 C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\controller\adminController\AdminRegistration.java
 C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\controller\bookController\BookServlet.java
+C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\controller\bookController\BookStatsServlet.java
+C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\controller\bookController\GetAllBooksServlet.java
+C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\controller\issueController\BooksIssuedServlet.java
 C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\controller\issueController\IssueServlet.java
 C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\controller\issueController\ReturnBookServlet.java
 C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\controller\ParkingSlotController\ParkingSlotServlet.java
@@ -19,6 +22,7 @@ C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_Syste
 C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\model\ParkingSlot.java
 C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\model\Renewal.java
 C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\model\Student.java
+C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\Utils\BookData.java
 C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\Utils\DBConnection.java
 C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\Utils\Email.java
 C:\Users\sanje\Desktop\mycode\Library Management System\Library_Management_System\src\main\java\com\management\library_management_system\Utils\Validation.java
