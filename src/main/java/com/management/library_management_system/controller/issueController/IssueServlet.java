@@ -7,6 +7,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -25,30 +27,35 @@ public class IssueServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int bookId = Integer.parseInt(request.getParameter("book_id"));
-        int studentId = Integer.parseInt(request.getParameter("student_id"));
 
-        LocalDate issueLocalDate = LocalDate.now();
-        LocalDate returnLocalDate = issueLocalDate.plusDays(8);
+        HttpSession session = request.getSession(false);
 
-        Date issueDate = Date.valueOf(issueLocalDate);
-        Date returnDate = Date.valueOf(returnLocalDate);
+        if (session != null && session.getAttribute("studentId") != null) {
+            String studentIdStr = session.getAttribute("studentId").toString();
 
-        Issue issue = new Issue.IssueBuilder()
-                .setBookId(bookId)
-                .setStudentId(studentId)
-                .setIssueDate(issueDate)
-                .setReturnDate(returnDate)
-                .build();
+            int studentId = Integer.parseInt(studentIdStr);
+            int bookId = Integer.parseInt(request.getParameter("book_id"));
 
-        try {
-            issueDao.issueBook(issue);
-            response.sendRedirect("studentDashboard.jsp");
-        } 
-        catch (SQLException ex)
-        {
-            Logger.getLogger(IssueServlet.class.getName()).log(Level.SEVERE, "Error while issuing book to student with ID: " + studentId, ex);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing your request.");
+            LocalDate issueLocalDate = LocalDate.now();
+            LocalDate returnLocalDate = issueLocalDate.plusDays(8);
+
+            Date issueDate = Date.valueOf(issueLocalDate);
+            Date returnDate = Date.valueOf(returnLocalDate);
+
+            Issue issue = new Issue.IssueBuilder()
+                    .setBookId(bookId)
+                    .setStudentId(studentId)
+                    .setIssueDate(issueDate)
+                    .setReturnDate(returnDate)
+                    .build();
+
+            try {
+                issueDao.issueBook(issue);
+                response.sendRedirect("studentDashboard.jsp");
+            } catch (SQLException ex) {
+                Logger.getLogger(IssueServlet.class.getName()).log(Level.SEVERE, "Error while issuing book to student with ID: " + studentId, ex);
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing your request.");
+            }
         }
     }
 }

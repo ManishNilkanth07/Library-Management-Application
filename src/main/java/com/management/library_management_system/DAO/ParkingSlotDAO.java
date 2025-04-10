@@ -15,8 +15,7 @@ public class ParkingSlotDAO {
     private static final Logger LOGGER = Logger.getLogger(ParkingSlotDAO.class.getName());
 
     public int createParkingSlot(String slotNumber) {
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(INSERTQUERY)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(INSERTQUERY)) {
 
             statement.setString(1, slotNumber);
             return statement.executeUpdate();
@@ -27,13 +26,12 @@ public class ParkingSlotDAO {
     }
 
     public int deleteParkingSlot(int parkingSlotId) {
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(DELETEQUERY)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETEQUERY)) {
 
             statement.setInt(1, parkingSlotId);
             return statement.executeUpdate();
         } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, "Error occurred during deleting parking slot", ex);
         }
         return 0;
     }

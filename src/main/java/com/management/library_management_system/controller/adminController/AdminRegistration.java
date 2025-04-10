@@ -10,7 +10,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
- 
 
 @WebServlet(name = "AdminRegistration", urlPatterns = {"/AdminRegistration"})
 public class AdminRegistration extends HttpServlet {
@@ -40,20 +39,15 @@ public class AdminRegistration extends HttpServlet {
                     .setLibraryName(libraryName)
                     .setRole("admin".equals(role) ? role : "admin")
                     .build();
-            
+
             int adminId = adminDao.createAdmin(admin);
 
-            if (adminId != 0) 
-            {
+            if (adminId != 0) {
                 response.sendRedirect("adminLogin.jsp");
-            } 
-            else 
-            {
+            } else {
                 response.sendRedirect("adminRegistration.jsp?error=Registration failed.");
             }
-        }
-        else
-        {
+        } else {
             response.sendRedirect("adminRegistration.jsp?error=Invalid credentials.");
         }
     }

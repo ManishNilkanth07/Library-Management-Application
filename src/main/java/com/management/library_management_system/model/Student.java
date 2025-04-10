@@ -3,33 +3,31 @@ package com.management.library_management_system.model;
 public class Student {
 
     private int studentId;
-    
+
     private String name;
-    
+
     private String email;
-    
+
     private String password;
-    
+
     private String role;
-    
+
     private String membershipNumber;
 
-    
     private Student(StudentBuilder builder) {
         this.studentId = builder.studentId;
-        
+
         this.name = builder.name;
-        
+
         this.email = builder.email;
-        
+
         this.password = builder.password;
-        
+
         this.role = builder.role;
-        
+
         this.membershipNumber = builder.membershipNumber;
     }
 
-   
     public int getStudentId() {
         return studentId;
     }
@@ -54,17 +52,16 @@ public class Student {
         return membershipNumber;
     }
 
-    
     @Override
     public String toString() {
-        return "Student{" +
-                "studentId=" + studentId +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", membershipNumber='" + membershipNumber + '\'' +
-                '}';
+        return "Student{"
+                + "studentId=" + studentId
+                + ", name='" + name + '\''
+                + ", email='" + email + '\''
+                + ", password='" + password + '\''
+                + ", role='" + role + '\''
+                + ", membershipNumber='" + membershipNumber + '\''
+                + '}';
     }
 
     // Static nested Builder class

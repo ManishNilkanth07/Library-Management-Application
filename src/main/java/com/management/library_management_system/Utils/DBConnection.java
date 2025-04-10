@@ -2,8 +2,6 @@ package com.management.library_management_system.Utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,30 +26,4 @@ public class DBConnection {
         return connection;
     }
 
-    public static void closeConnection(Connection connection, PreparedStatement statement, ResultSet resultSet) {
-        try 
-        {
-            if (resultSet != null) resultSet.close();
-        }
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try 
-        {
-            if (statement != null) statement.close();
-        } 
-        catch (SQLException ex)
-        {
-            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try 
-        {
-            if (connection != null) connection.close();
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 }

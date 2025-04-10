@@ -1,12 +1,11 @@
- 
 package com.management.library_management_system.Utils;
 
 import java.util.Date;
 
 public class BookData {
-    
+
     private int bookId;
-    
+
     private int issueId;
 
     private String name;
@@ -19,7 +18,6 @@ public class BookData {
 
     private Date returnDate;
 
-    
     public BookData() {
     }
 
@@ -33,8 +31,6 @@ public class BookData {
         this.returnDate = returnDate;
     }
 
-    
-    
     public int getBookId() {
         return bookId;
     }
@@ -90,6 +86,5 @@ public class BookData {
     public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
     }
-    
-    
+
 }

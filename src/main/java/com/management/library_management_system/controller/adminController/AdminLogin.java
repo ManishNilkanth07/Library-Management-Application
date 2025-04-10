@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
- 
 
 @WebServlet(name = "AdminLogin", urlPatterns = {"/AdminLogin"})
 public class AdminLogin extends HttpServlet {
@@ -30,20 +29,15 @@ public class AdminLogin extends HttpServlet {
         if (Validation.isValidPassword(password) && Validation.isValidMembershipNumber(membershipNumber)) {
             Admin admin = adminDao.loginAdmin(membershipNumber, password);
 
-            if (admin != null) 
-            {
+            if (admin != null) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("adminId", admin.getAdminId());
-//                response.sendRedirect("adminDashboard.jsp");
+
                 response.sendRedirect("BookStatsServlet");
-            } 
-            else
-            {
+            } else {
                 response.sendRedirect("adminLogin.jsp?error=Invalid Credentials");
             }
-        } 
-        else 
-        {
+        } else {
             response.sendRedirect("adminLogin.jsp?error=Invalid Credentials");
         }
     }

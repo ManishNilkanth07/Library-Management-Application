@@ -1,0 +1,60 @@
+body {
+    background-color: #f7f7f7;
+    font-family: 'Arial', sans-serif;
+}
+
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    text-align: center;
+}
+
+.error-box {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+}
+
+.error-code {
+    font-size: 120px;
+    font-weight: bold;
+    color: #f44336;
+}
+
+.error-message {
+    font-size: 22px;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.alert {
+    display: inline-block;
+    max-width: 80%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.back-home-link {
+    text-decoration: none;
+    font-weight: 600;
+    color: #007bff;
+}
+
+.back-home-link:hover {
+    text-decoration: underline;
+}

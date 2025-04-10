@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,17 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/adminDashboardStyle.css">
-    <style>
-        .navbar-custom {
-            background-color: #2c3e50;
-        }
-        .navbar-custom .navbar-brand, .navbar-custom .nav-link {
-            color: #ecf0f1;
-        }
-        .navbar-custom .nav-link:hover {
-            color: #3498db;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/editBookStyle.css">
 </head>
 <body>
     <div class="container-fluid">
@@ -46,7 +37,7 @@
                                    </li>
 
                                    <li class="nav-item" id="logoutBtn">
-                                       <a class="nav-link logout-btn d-flex align-items-center justify-content-center px-3 py-2 rounded" href="logout.jsp">
+                                       <a class="nav-link logout-btn d-flex align-items-center justify-content-center px-3 py-2 rounded" href="LogoutServlet">
                                            <i class="fas fa-sign-out-alt me-2"></i> Logout
                                        </a>
                                    </li>
@@ -54,7 +45,6 @@
                            </div>
                        </nav>
 
-        <!-- Edit Book Form -->
         <div class="container mt-4">
             <h2 class="text-center mb-4">Editing Book</h2>
             <div class="card shadow-sm">
@@ -85,8 +75,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

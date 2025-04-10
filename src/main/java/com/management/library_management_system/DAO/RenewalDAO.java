@@ -13,17 +13,16 @@ public class RenewalDAO {
     private static final Logger LOGGER = Logger.getLogger(RenewalDAO.class.getName());
 
     public int renewBook(int issueId, Date renewalDate) {
-        try (Connection connection = DBConnection.getConnection(); 
-             PreparedStatement checkStatement = connection.prepareStatement(CHECKISSUE)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement checkStatement = connection.prepareStatement(CHECKISSUE)) {
 
             checkStatement.setInt(1, issueId);
-            
+
             try (ResultSet set = checkStatement.executeQuery()) {
                 if (!set.next()) {
                     try (PreparedStatement renewalStatement = connection.prepareStatement(INSERTQUERY)) {
                         renewalStatement.setInt(1, issueId);
                         renewalStatement.setDate(2, renewalDate);
-                        renewalStatement.executeUpdate();
+                        return renewalStatement.executeUpdate();
                     }
                 }
             }

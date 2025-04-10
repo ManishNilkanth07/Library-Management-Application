@@ -28,33 +28,26 @@ public class StudentLogin extends HttpServlet {
         String membershipNumber = request.getParameter("membershipNumber");
         String password = request.getParameter("password");
 
-        if (Validation.isValidPassword(password) && Validation.isValidMembershipNumber(membershipNumber)) 
-        {
+        if (Validation.isValidPassword(password) && Validation.isValidMembershipNumber(membershipNumber)) {
             Student student = studentDao.loginStudent(membershipNumber, password);
 
-            if (student != null) 
-            {
+            if (student != null) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("studentId", student.getStudentId());
-                try
-                {
+                try {
                     response.sendRedirect("studentDashboard.jsp");
-                }
-                catch (IOException ex) {
+                } catch (IOException ex) {
                     Logger.getLogger(StudentLogin.class.getName()).log(Level.SEVERE, "Error redirecting to dashboard", ex);
                 }
-            } 
-            else
-            {
-                try 
-                {
+            } else {
+                try {
                     response.sendRedirect("studentLogin.jsp?error=Invalid Credentials");
-                } 
-                catch (IOException ex)
-                {
+                } catch (IOException ex) {
                     Logger.getLogger(StudentLogin.class.getName()).log(Level.SEVERE, "Error during login", ex);
                 }
             }
+        } else {
+            response.sendRedirect("studentLogin.jsp?error=Invalid Credentials");
         }
     }
 }

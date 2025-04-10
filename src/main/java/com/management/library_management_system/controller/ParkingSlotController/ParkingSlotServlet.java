@@ -23,36 +23,30 @@ public class ParkingSlotServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        if ("addSlot".equals(action)) 
-        {
+        if ("addSlot".equals(action)) {
             addParkingSlot(request, response);
-        } 
-        else if ("deleteSlot".equals(action)) 
-        {
+        } else if ("deleteSlot".equals(action)) {
             deleteParkingSlot(request, response);
         }
     }
 
-    private void addParkingSlot(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    private void addParkingSlot(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String slotNumber = request.getParameter("slotNumber");
         try {
             parkingSlotDao.createParkingSlot(slotNumber);
             response.sendRedirect("adminDashboard.jsp");
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(ParkingSlotServlet.class.getName()).log(Level.SEVERE, "Error creating parking slot with slot number: " + slotNumber, ex);
             response.sendRedirect("errorPage.jsp");
         }
     }
 
     private void deleteParkingSlot(HttpServletRequest request, HttpServletResponse response) {
-        try 
-        {
+        try {
             int slotId = Integer.parseInt(request.getParameter("slotId"));
             parkingSlotDao.deleteParkingSlot(slotId);
             response.sendRedirect("adminDashboard.jsp");
-        } 
-        catch (NumberFormatException | IOException ex) {
+        } catch (NumberFormatException | IOException ex) {
             Logger.getLogger(ParkingSlotServlet.class.getName()).log(Level.SEVERE, "Invalid slot ID format", ex);
             try {
                 response.sendRedirect("errorPage.jsp");

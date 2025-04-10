@@ -16,7 +16,7 @@ public class Book {
     private int quantity;
 
     public Book(BookBuilder bookBuilder) {
-        
+
         this.bookId = bookBuilder.bookId;
         this.name = bookBuilder.name;
         this.author = bookBuilder.author;
@@ -80,12 +80,11 @@ public class Book {
             this.quantity = quantity;
             return this;
         }
-        
-        public Book build()
-        {
+
+        public Book build() {
             return new Book(this);
         }
-        
+
     }
 
     @Override

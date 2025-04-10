@@ -1,0 +1,33 @@
+
+.container {
+    max-width: 900px;
+}
+.card {
+    border-radius: 15px;
+}
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+.search-section {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.result-table th, .result-table td {
+    text-align: center;
+}
+.result-table thead {
+    background-color: #007bff;
+    color: white;
+}
+.result-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+.alert-warning {
+    text-align: center;
+}

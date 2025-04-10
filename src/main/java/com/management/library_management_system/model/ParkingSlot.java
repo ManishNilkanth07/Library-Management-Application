@@ -10,9 +10,9 @@ public class ParkingSlot {
     }
 
     private ParkingSlot(ParkingSlotBuilder builder) {
-       
+
         this.slotId = builder.slotId;
-        
+
         this.slotNumber = builder.slotNumber;
     }
 
@@ -23,15 +23,12 @@ public class ParkingSlot {
     public String getSlotNumber() {
         return slotNumber;
     }
-    
-    
 
     @Override
     public String toString() {
         return "ParkingSlot{" + "slotId=" + slotId + ", slotNumber=" + slotNumber + '}';
     }
 
-    
     public static class ParkingSlotBuilder {
 
         private int slotId;
@@ -47,11 +44,10 @@ public class ParkingSlot {
             this.slotNumber = slotNumber;
             return this;
         }
-        
-        public ParkingSlot build()
-        {
+
+        public ParkingSlot build() {
             return new ParkingSlot(this);
         }
-         
+
     }
 }

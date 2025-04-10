@@ -59,12 +59,14 @@ public class BookServlet extends HttpServlet {
                     .setQuantity(quantity)
                     .build();
 
-            bookDao.updateBook(book);
-            response.sendRedirect("adminDashboard.jsp?success=Book updated successfully");
+            int updateBook = bookDao.updateBook(book);
+            if (updateBook != 0) {
+                response.sendRedirect("adminDashboard.jsp?success=Book updated successfully");
+            } else {
+                response.sendRedirect("adminDashboard.jsp?error=Failed to update book");
+            }
 
-        } 
-        catch (IOException | NumberFormatException ex) 
-        {
+        } catch (IOException | NumberFormatException ex) {
             Logger.getLogger(BookServlet.class.getName()).log(Level.SEVERE, "Error updating book", ex);
             response.sendRedirect("adminDashboard.jsp?error=Failed to update book");
         }
@@ -73,11 +75,13 @@ public class BookServlet extends HttpServlet {
     private void deleteBook(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             int bookId = Integer.parseInt(request.getParameter("book_id"));
-            bookDao.deleteBookById(bookId);
-            response.sendRedirect("adminDashboard.jsp?success=Book deleted successfully");
-        } 
-        catch (IOException | NumberFormatException ex) 
-        {
+            int deleteBook = bookDao.deleteBookById(bookId);
+            if (deleteBook != 0) {
+                response.sendRedirect("adminDashboard.jsp?success=Book deleted successfully");
+            } else {
+                response.sendRedirect("adminDashboard.jsp?error=Failed to delete book");
+            }
+        } catch (IOException | NumberFormatException ex) {
             Logger.getLogger(BookServlet.class.getName()).log(Level.SEVERE, "Error deleting book", ex);
             response.sendRedirect("adminDashboard.jsp?error=Failed to delete book");
         }
@@ -98,17 +102,12 @@ public class BookServlet extends HttpServlet {
                     .build();
 
             int bookId = bookDao.createBook(book);
-            if (bookId != 0)
-            {
+            if (bookId != 0) {
                 response.sendRedirect("adminDashboard.jsp?success=Book added successfully");
-            } 
-            else
-            {
+            } else {
                 response.sendRedirect("adminDashboard.jsp?error=Failed to add book");
             }
-        }
-        catch (IOException | NumberFormatException ex)
-        {
+        } catch (IOException | NumberFormatException ex) {
             Logger.getLogger(BookServlet.class.getName()).log(Level.SEVERE, "Error adding book", ex);
             response.sendRedirect("adminDashboard.jsp?error=Failed to add book");
         }

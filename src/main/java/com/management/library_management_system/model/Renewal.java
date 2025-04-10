@@ -11,11 +11,11 @@ public class Renewal {
     private Date renewalDate;
 
     public Renewal(RenewalBuilder builder) {
-        
+
         this.renewalId = builder.renewalId;
-        
+
         this.issueId = builder.issueId;
-        
+
         this.renewalDate = builder.renewalDate;
     }
 
@@ -58,12 +58,11 @@ public class Renewal {
             this.renewalDate = renewalDate;
             return this;
         }
-        
-        public Renewal build()
-        {
+
+        public Renewal build() {
             return new Renewal(this);
         }
-        
+
     }
 
 }

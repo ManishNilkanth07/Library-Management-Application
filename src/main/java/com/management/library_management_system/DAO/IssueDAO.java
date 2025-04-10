@@ -58,8 +58,7 @@ public class IssueDAO {
 
     public List<Issue> getAllIssueByStudentId(int studentId) {
         List<Issue> issues = new ArrayList<>();
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GETBYSTUDENTID)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(GETBYSTUDENTID)) {
 
             statement.setInt(1, studentId);
             try (ResultSet set = statement.executeQuery()) {
@@ -82,8 +81,7 @@ public class IssueDAO {
     }
 
     public int returnBook(int issueId) {
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement getBookStmt = connection.prepareStatement(GETBOOKIQUERY)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement getBookStmt = connection.prepareStatement(GETBOOKIQUERY)) {
 
             getBookStmt.setInt(1, issueId);
 
@@ -109,8 +107,7 @@ public class IssueDAO {
     }
 
     public int issueBook(Issue issue) throws SQLException {
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement checkQuantityStatement = connection.prepareStatement(CHECKBOOKQUANTITY)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement checkQuantityStatement = connection.prepareStatement(CHECKBOOKQUANTITY)) {
 
             checkQuantityStatement.setInt(1, issue.getBookId());
 
@@ -139,8 +136,7 @@ public class IssueDAO {
     }
 
     public Issue getIssueByIssueId(int issueId) {
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GETQUERY)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(GETQUERY)) {
 
             statement.setInt(1, issueId);
 
@@ -162,8 +158,7 @@ public class IssueDAO {
     }
 
     public int updateIssue(Issue issue) {
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATEQUERY)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATEQUERY)) {
 
             statement.setInt(1, issue.getBookId());
             statement.setInt(2, issue.getStudentId());
@@ -179,8 +174,7 @@ public class IssueDAO {
     }
 
     public void deleteIssue(int issueId) {
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(DELETQUERY)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETQUERY)) {
 
             statement.setInt(1, issueId);
             statement.executeUpdate();
@@ -192,12 +186,10 @@ public class IssueDAO {
     public List<Issue> getAllIssues() {
         List<Issue> issueList = new ArrayList<>();
 
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GETALLISSUE)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(GETALLISSUE)) {
 
             try (ResultSet set = statement.executeQuery()) {
-                while(set.next())
-                {
+                while (set.next()) {
                     Issue issue = new Issue.IssueBuilder()
                             .setIssueId(set.getInt("issue_id"))
                             .setBookId(set.getInt("book_id"))
@@ -209,12 +201,10 @@ public class IssueDAO {
                     issueList.add(issue);
                 }
                 return issueList;
-            }
-            catch (SQLException ex) {
+            } catch (SQLException ex) {
                 LOGGER.log(Level.SEVERE, null, ex);
             }
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }
         return null;

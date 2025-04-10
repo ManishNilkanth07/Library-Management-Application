@@ -9,6 +9,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -18,31 +20,38 @@ public class BookStatsServlet extends HttpServlet {
     private final BookDAO bookDAO;
     private final IssueDAO issueDAO;
 
-    public BookStatsServlet()
-    {
+    public BookStatsServlet() {
         this.bookDAO = new BookDAO();
         this.issueDAO = new IssueDAO();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int totalBooks = -1;
-        int issuedBooks = -1;
-        List<Book> bookList = bookDAO.getAllBooks();
 
-        List<Issue> issueList = issueDAO.getAllIssues();
+        HttpSession session = request.getSession(false);
 
-         totalBooks = bookList.size();
+        if (session != null && session.getAttribute("adminId") != null) {
 
-         issuedBooks = issueList.size();
+            int totalBooks = -1;
+            int issuedBooks = -1;
+            List<Book> bookList = bookDAO.getAllBooks();
 
-        response.getWriter().println("total books :"+ totalBooks);
-        response.getWriter().println("total issed books :"+ issuedBooks);
-        System.out.println(totalBooks);
-        System.out.println(issuedBooks);
-        request.setAttribute("totalBooks",totalBooks);
-        request.setAttribute("issuedBooks",issuedBooks);
+            List<Issue> issueList = issueDAO.getAllIssues();
 
-        request.getRequestDispatcher("/adminDashboard.jsp").forward(request,response);
+            totalBooks = bookList.size();
+
+            issuedBooks = issueList.size();
+
+            response.getWriter().println("total books :" + totalBooks);
+            response.getWriter().println("total issed books :" + issuedBooks);
+            System.out.println(totalBooks);
+            System.out.println(issuedBooks);
+            request.setAttribute("totalBooks", totalBooks);
+            request.setAttribute("issuedBooks", issuedBooks);
+
+            request.getRequestDispatcher("/adminDashboard.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("adminLogin.jsp?error=session expired");
+        }
     }
 }

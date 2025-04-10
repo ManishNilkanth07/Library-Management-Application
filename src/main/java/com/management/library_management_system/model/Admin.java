@@ -1,6 +1,5 @@
 package com.management.library_management_system.model;
 
- 
 import jakarta.servlet.annotation.WebServlet;
 
 @WebServlet(name = "Admin", urlPatterns = {"/Admin"})
@@ -15,7 +14,6 @@ public class Admin {
     private String membershipNumber;
     private String libraryName;
 
-    // Private constructor to prevent direct instantiation from outside the Builder
     private Admin(AdminBuilder builder) {
         this.adminId = builder.adminId;
         this.name = builder.name;
@@ -27,7 +25,6 @@ public class Admin {
         this.libraryName = builder.libraryName;
     }
 
-     
     public int getAdminId() {
         return adminId;
     }
@@ -60,22 +57,20 @@ public class Admin {
         return libraryName;
     }
 
-    
     @Override
     public String toString() {
-        return "Admin{" +
-                "adminId=" + adminId +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", address='" + address + '\'' +
-                ", membershipNumber='" + membershipNumber + '\'' +
-                ", libraryName='" + libraryName + '\'' +
-                '}';
+        return "Admin{"
+                + "adminId=" + adminId
+                + ", name='" + name + '\''
+                + ", email='" + email + '\''
+                + ", password='" + password + '\''
+                + ", role='" + role + '\''
+                + ", address='" + address + '\''
+                + ", membershipNumber='" + membershipNumber + '\''
+                + ", libraryName='" + libraryName + '\''
+                + '}';
     }
-
-    // Static nested Builder class
+ 
     public static class AdminBuilder {
 
         private int adminId;
@@ -86,8 +81,7 @@ public class Admin {
         private String address;
         private String membershipNumber;
         private String libraryName;
-
-        // Setter methods that return the builder for chaining
+ 
         public AdminBuilder setAdminId(int adminId) {
             this.adminId = adminId;
             return this;
@@ -128,7 +122,6 @@ public class Admin {
             return this;
         }
 
-     
         public Admin build() {
             return new Admin(this);
         }

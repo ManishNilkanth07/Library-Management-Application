@@ -1,25 +1,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Registration - Library Management System</title>
-
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-   
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/adminRegistrationStyle.css">
-    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-
- 
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="index.jsp">Library Management</a>
@@ -39,8 +31,6 @@
             </div>
         </div>
     </nav>
-
- 
     <div class="container my-5">
         <h2 class="text-center">Admin Registration</h2>
         <form action="AdminRegistration" method="post">
@@ -66,13 +56,9 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Register</button>
         </form>
-    </div>
-
-    
+    </div> 
     <footer class="footer text-center">
         <p>&copy; 2025 Library Management System. All rights reserved.</p>
     </footer>
-
 </body>
-
 </html>

@@ -15,15 +15,15 @@ public class Issue {
     private Date returnDate;
 
     private Issue(IssueBuilder builder) {
-        
+
         this.issueId = builder.issueId;
-        
+
         this.bookId = builder.bookId;
-        
+
         this.studentId = builder.studentId;
-        
+
         this.issueDate = builder.issueDate;
-       
+
         this.returnDate = builder.returnDate;
     }
 
@@ -88,11 +88,10 @@ public class Issue {
             this.returnDate = returnDate;
             return this;
         }
-        
-        public Issue build()
-        {
+
+        public Issue build() {
             return new Issue(this);
         }
-        
+
     }
 }

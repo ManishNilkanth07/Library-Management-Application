@@ -21,8 +21,7 @@ public class AdminDAO {
     private static final Logger LOGGER = Logger.getLogger(AdminDAO.class.getName());
 
     public int createAdmin(Admin admin) {
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(INSERTQUERY)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(INSERTQUERY)) {
 
             statement.setString(1, admin.getName());
             statement.setString(2, admin.getEmail());
@@ -41,8 +40,7 @@ public class AdminDAO {
     }
 
     public Admin loginAdmin(String membershipNumber, String password) {
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(LOGINQUERY)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(LOGINQUERY)) {
 
             statement.setString(1, membershipNumber);
             statement.setString(2, password);
@@ -68,8 +66,7 @@ public class AdminDAO {
     }
 
     public Admin getAdminById(int adminId) {
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GETQUERY)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(GETQUERY)) {
 
             statement.setInt(1, adminId);
 
@@ -94,8 +91,7 @@ public class AdminDAO {
     }
 
     public int deleteAdminById(int adminId) {
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(DELETQUERY)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETQUERY)) {
 
             statement.setInt(1, adminId);
             return statement.executeUpdate();
@@ -107,8 +103,7 @@ public class AdminDAO {
     }
 
     public int updateAdminById(Admin admin) {
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATEQUERY)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATEQUERY)) {
 
             statement.setString(1, admin.getName());
             statement.setString(2, admin.getAddress());
@@ -125,6 +120,6 @@ public class AdminDAO {
 
     public String getMembershipNumber(String name) {
         int number = (int) (Math.random() * 10000);
-        return name.substring(0, Math.min(3, name.length())) + String.format("%04d", number);
+        return name.substring(0, Math.min(3, name.length())) + number;
     }
 }

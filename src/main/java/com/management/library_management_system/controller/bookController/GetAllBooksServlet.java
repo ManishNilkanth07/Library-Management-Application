@@ -23,26 +23,26 @@ public class GetAllBooksServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         List<Book> bookList = null;
 
         try {
             bookList = bookDao.getAllBooks();
-        } 
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Logger.getLogger(GetAllBooksServlet.class.getName()).log(Level.SEVERE, "Error fetching books", e);
             response.sendRedirect("adminDashboard.jsp?error=Failed to fetch books");
             return;
         }
 
-        if (bookList != null && !bookList.isEmpty()) 
-        {
+        if (bookList != null && !bookList.isEmpty()) {
             request.setAttribute("bookList", bookList);
-            request.getRequestDispatcher("viewBooks.jsp").forward(request, response);
-        }
-        else 
-        {
+            String page = request.getParameter("page");
+
+            if ("issue".equals(page)) {
+                request.getRequestDispatcher("issueBook.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("viewBooks.jsp").forward(request, response);
+            }
+        } else {
             response.sendRedirect("adminDashboard.jsp?error=No books available");
         }
     }
