@@ -1,6 +1,7 @@
 package com.management.library_management_system.DAO;
 
 import com.management.library_management_system.Utils.DBConnection;
+import com.management.library_management_system.Utils.Email;
 import com.management.library_management_system.model.Admin;
 
 import java.sql.Connection;
@@ -23,16 +24,18 @@ public class AdminDAO {
     public int createAdmin(Admin admin) {
         try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(INSERTQUERY)) {
 
+            String membershipNumber = getMembershipNumber(admin.getName());
             statement.setString(1, admin.getName());
             statement.setString(2, admin.getEmail());
             statement.setString(3, admin.getPassword());
             statement.setString(4, admin.getRole());
             statement.setString(5, admin.getAddress());
-            statement.setString(6, getMembershipNumber(admin.getName()));
+            statement.setString(6, membershipNumber);
             statement.setString(7, admin.getLibraryName());
 
-            return statement.executeUpdate();
-
+            int adminResponse =  statement.executeUpdate();
+            Email.sendEmail(admin.getEmail(), "Library Admin Registration", "Your Membership Number: " + membershipNumber);
+            return adminResponse;
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "Error during creating admin", ex);
         }

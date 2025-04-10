@@ -1,6 +1,7 @@
 package com.management.library_management_system.DAO;
 
 import com.management.library_management_system.Utils.DBConnection;
+import com.management.library_management_system.Utils.Email;
 import com.management.library_management_system.model.Student;
 import java.sql.*;
 import java.util.logging.Level;
@@ -18,14 +19,17 @@ public class StudentDAO {
 
     public int createStudent(Student student) {
         try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(INSERTQUERY)) {
+            String membershipNumber = getMembershipNumber(student.getName());
 
             statement.setString(1, student.getName());
             statement.setString(2, student.getEmail());
             statement.setString(3, student.getPassword());
             statement.setString(4, student.getRole());
-            statement.setString(5, getMembershipNumber(student.getName()));
+            statement.setString(5, membershipNumber);
 
-            return statement.executeUpdate();
+            int result =  statement.executeUpdate();
+            Email.sendEmail(student.getEmail(), "Library Student Registration", "Your Membership Number: " + membershipNumber);
+            return result;
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "Error occurred while creating student", ex);
         }

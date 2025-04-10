@@ -46,10 +46,10 @@ public class StudentRegistration extends HttpServlet {
                     Logger.getLogger(StudentRegistration.class.getName()).log(Level.SEVERE, "Error redirecting to student login page", ex);
                 }
             } else {
-                response.sendRedirect("studentRegistration.jsp");
+                response.sendRedirect("studentRegistration.jsp?error = registration failed");
             }
         } else {
-            response.sendRedirect("studentRegistration.jsp?error=Registration failed!");
+            response.sendRedirect("studentRegistration.jsp?error= invalid email or password!");
         }
     }
 }
