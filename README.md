@@ -17,7 +17,6 @@ Admin Dashboard
 - View all books
 - Issue books to students
 - Edit or delete book entries
-- See to whom a book has been issued
 
 ------------------------------------------------------------
 
