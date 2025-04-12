@@ -1,7 +1,6 @@
 package com.management.library_management_system.controller.bookController;
 
 import com.management.library_management_system.DAO.BookDAO;
-import com.management.library_management_system.controller.renewalController.RenewalServlet;
 import com.management.library_management_system.model.Book;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -44,7 +43,7 @@ public class SearchBooks extends HttpServlet {
                     response.sendRedirect("search.jsp?NotFound=books not found");
                 }
             } catch (IOException ex) {
-                Logger.getLogger(RenewalServlet.class.getName()).log(Level.SEVERE, "An error occurred while searching the book", ex);
+                Logger.getLogger(SearchBooks.class.getName()).log(Level.SEVERE, "An error occurred while searching the book", ex);
             }
         }
     }

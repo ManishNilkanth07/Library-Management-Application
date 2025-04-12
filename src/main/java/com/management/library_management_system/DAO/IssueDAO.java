@@ -27,7 +27,7 @@ public class IssueDAO {
     private static final String PLUSBOOKQUANTITY = "UPDATE book SET quantity = quantity + 1 WHERE book_id=?";
     private static final String GETBOOKIQUERY = "SELECT book_id FROM issue WHERE issue_id=?";
     private static final String GETALLISSUE = "SELECT * FROM issue";
-
+    private static final String UPDATERETURNDATE  = "UPDATE issue SET return_date = ? WHERE issue_id = ?";
     private static final Logger LOGGER = Logger.getLogger(IssueDAO.class.getName());
 
     public List<BookData> getAllIssuedBooks(List<Issue> issues) {
@@ -96,7 +96,8 @@ public class IssueDAO {
                     deleteIssue(issueId);
                     try (PreparedStatement updateBookStmt = connection.prepareStatement(PLUSBOOKQUANTITY)) {
                         updateBookStmt.setInt(1, bookId);
-                        return updateBookStmt.executeUpdate();
+                        updateBookStmt.executeUpdate();
+                        return bookId;
                     }
                 }
             }
@@ -209,4 +210,22 @@ public class IssueDAO {
         }
         return null;
     }
+
+    public boolean updateReturnDate(int issueId, Date date) {
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(UPDATERETURNDATE)) {
+
+            stmt.setDate(1, new java.sql.Date(date.getTime()));
+            stmt.setInt(2, issueId);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

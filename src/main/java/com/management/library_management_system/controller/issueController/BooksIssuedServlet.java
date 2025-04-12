@@ -11,6 +11,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "BooksIssuedServlet", urlPatterns = {"/BooksIssuedServlet"})
@@ -33,12 +36,27 @@ public class BooksIssuedServlet extends HttpServlet {
             try {
                 List<Issue> issues = issueDao.getAllIssueByStudentId(studentId);
                 List<BookData> issuedBooks = issueDao.getAllIssuedBooks(issues);
-                request.setAttribute("issuedBooks", issuedBooks);
+
+                List<BookData> booksWithTwoDaysLeft = new ArrayList<>();
+                LocalDate today = LocalDate.now();
+
+                for (BookData book : issuedBooks) {
+                    Date returnDate = book.getReturnDate();
+                    if (returnDate != null) {
+                        LocalDate returnLocalDate = new java.sql.Date(returnDate.getTime()).toLocalDate();
+                        if (!returnLocalDate.isBefore(today) && !returnLocalDate.isAfter(today.plusDays(2))) {
+                            booksWithTwoDaysLeft.add(book);
+                        }
+                    }
+                }
+
 
                 String page = request.getParameter("page");
                 if ("renew".equals(page)) {
+                    request.setAttribute("issuedBooks", booksWithTwoDaysLeft);
                     request.getRequestDispatcher("renewBook.jsp").forward(request, response);
                 } else {
+                    request.setAttribute("issuedBooks", issuedBooks);
                     request.getRequestDispatcher("booksIssued.jsp").forward(request, response);
                 }
 

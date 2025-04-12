@@ -35,18 +35,22 @@ public class IssueServlet extends HttpServlet {
 
             int studentId = Integer.parseInt(studentIdStr);
             int bookId = Integer.parseInt(request.getParameter("book_id"));
+            String issuedDateStr = request.getParameter("issued_date");
+            String returnDateStr = request.getParameter("return_date");
 
-            LocalDate issueLocalDate = LocalDate.now();
-            LocalDate returnLocalDate = issueLocalDate.plusDays(8);
+            LocalDate issueDate = LocalDate.parse(issuedDateStr);
+            LocalDate returnDate = LocalDate.parse(returnDateStr);
 
-            Date issueDate = Date.valueOf(issueLocalDate);
-            Date returnDate = Date.valueOf(returnLocalDate);
+            LocalDate maxReturnDate = issueDate.plusDays(8);
+            if (returnDate.isAfter(maxReturnDate)) {
+                returnDate = maxReturnDate;
+            }
 
             Issue issue = new Issue.IssueBuilder()
                     .setBookId(bookId)
                     .setStudentId(studentId)
-                    .setIssueDate(issueDate)
-                    .setReturnDate(returnDate)
+                    .setIssueDate(Date.valueOf(issueDate))
+                    .setReturnDate(Date.valueOf(returnDate))
                     .build();
 
             try {
@@ -58,4 +62,5 @@ public class IssueServlet extends HttpServlet {
             }
         }
     }
+
 }

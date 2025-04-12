@@ -1,40 +1,47 @@
 package com.management.library_management_system.controller.renewalController;
 
+import com.management.library_management_system.DAO.IssueDAO;
 import com.management.library_management_system.DAO.RenewalDAO;
+import com.management.library_management_system.DAO.ReservationDAO;
+import com.management.library_management_system.model.Issue;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @WebServlet(name = "RenewalServlet", urlPatterns = {"/RenewalServlet"})
 public class RenewalServlet extends HttpServlet {
 
-    private final RenewalDAO renewalDao;
-
-    public RenewalServlet() {
-        this.renewalDao = new RenewalDAO();
-    }
-
+    private final IssueDAO issueDao = new IssueDAO();
+    private final ReservationDAO reservationDao = new ReservationDAO();
+    private final RenewalDAO renewalDAO = new RenewalDAO();
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        try {
-            int issueId = Integer.parseInt(request.getParameter("issue_id"));
-            LocalDate localDate = LocalDate.now();
-            Date renewalDate = Date.valueOf(localDate);
-
-            renewalDao.renewBook(issueId, renewalDate);
-
-            response.sendRedirect("studentDashboard.jsp?success=book renewed successfully");
-
-        } catch (IOException ex) {
-            Logger.getLogger(RenewalServlet.class.getName()).log(Level.SEVERE, "An error occurred while renewing the book", ex);
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("studentId") == null) {
+            response.sendRedirect("studentLogin.jsp");
+            return;
         }
+
+        int studentId = Integer.parseInt(session.getAttribute("studentId").toString());
+        int issueId = Integer.parseInt(request.getParameter("issue_id"));
+
+        Issue issue = issueDao.getIssueByIssueId(issueId);
+        if (issue == null || reservationDao.isReservedByAnotherUser(issue.getBookId(), studentId)) {
+            response.sendRedirect("studentDashboard.jsp?renewal=failed!");
+            return;
+        }
+
+        boolean success = issueDao.updateReturnDate(issueId, Date.valueOf(LocalDate.now().plusDays(8)));
+        renewalDAO.renewBook(issueId , Date.valueOf(LocalDate.now()));
+        response.sendRedirect("studentDashboard.jsp?renewal=" + (success ? "success" : "failed"));
     }
 }

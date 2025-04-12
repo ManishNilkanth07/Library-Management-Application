@@ -20,6 +20,7 @@ public class BookDAO {
     private static final String UPDATEQUERY = "UPDATE book SET name=?, author=?, edition=?, quantity=? WHERE book_id=?";
     private static final String DELETQUERY = "DELETE FROM book WHERE book_id=?";
     private static final String SEARCHBOOKBYNAMEORAUTHOR = "SELECT * FROM book WHERE name=? or author=?";
+    private static final String GET_BOOK_NAME_BY_BOOK_ID = "SELECT name FROM book WHERE book_id=?";
 
     private static final Logger LOGGER = Logger.getLogger(BookDAO.class.getName());
 
@@ -135,5 +136,21 @@ public class BookDAO {
             LOGGER.log(Level.SEVERE, "Error during searching books", ex);
         }
         return books;
+    }
+
+    public String getBookNameById(int returnedBookId) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(GET_BOOK_NAME_BY_BOOK_ID)) {
+
+            statement.setInt(1, returnedBookId);
+
+            try (ResultSet set = statement.executeQuery()) {
+                if (set.next()) {
+                    return set.getString("name");
+                }
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error during fetching book name by ID", ex);
+        }
+        return null;
     }
 }

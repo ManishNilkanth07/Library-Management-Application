@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -41,12 +40,10 @@
             </div>
         </nav>
 
-
         <div class="container mt-5 text-center">
             <h1>Welcome to the Library Dashboard</h1>
             <p class="lead">Easily manage your books and library transactions</p>
         </div>
-
 
         <div class="container mt-5">
             <div class="row text-center">
@@ -103,6 +100,17 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-4">
+                    <div class="card card-bg-secondary">
+                        <div class="card-body">
+                            <h5 class="card-title">Reserve Book</h5>
+                            <p class="card-text">Reserve a book that is out of stock and get notified when available.</p>
+                            <a href="reserveBook.jsp" class="btn btn-light btn-custom"><i class="fas fa-bookmark"></i> Reserve a Book</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 

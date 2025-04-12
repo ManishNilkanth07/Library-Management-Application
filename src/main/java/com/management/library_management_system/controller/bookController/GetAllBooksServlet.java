@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "GetAllBooksServlet", urlPatterns = {"/GetAllBooksServlet"})
 public class GetAllBooksServlet extends HttpServlet {
@@ -23,26 +24,35 @@ public class GetAllBooksServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Book> bookList = null;
 
-        try {
-            bookList = bookDao.getAllBooks();
-        } catch (Exception e) {
-            Logger.getLogger(GetAllBooksServlet.class.getName()).log(Level.SEVERE, "Error fetching books", e);
-            response.sendRedirect("adminDashboard.jsp?error=Failed to fetch books");
-            return;
-        }
+        List<Book> bookList = null;
+        bookList = bookDao.getAllBooks();
 
         if (bookList != null && !bookList.isEmpty()) {
-            request.setAttribute("bookList", bookList);
             String page = request.getParameter("page");
 
             if ("issue".equals(page)) {
+
+                List<Book> issueBooks = bookList.stream()
+                        .filter(book -> book.getQuantity() > 0)
+                        .collect(Collectors.toList());
+                request.setAttribute("bookList", issueBooks);
                 request.getRequestDispatcher("issueBook.jsp").forward(request, response);
-            } else {
+            }
+            else if ("reserve".equals(page)) {
+
+                List<Book> reserveBooks = bookList.stream()
+                        .filter(book -> book.getQuantity() == 0)
+                        .collect(Collectors.toList());
+                request.setAttribute("bookList", reserveBooks);
+                request.getRequestDispatcher("reserveBook.jsp").forward(request, response);
+            }
+            else {
+                request.setAttribute("bookList", bookList);
                 request.getRequestDispatcher("viewBooks.jsp").forward(request, response);
             }
-        } else {
+        }
+        else {
             response.sendRedirect("adminDashboard.jsp?error=No books available");
         }
     }

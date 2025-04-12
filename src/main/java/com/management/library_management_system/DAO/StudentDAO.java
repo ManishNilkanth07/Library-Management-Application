@@ -10,10 +10,11 @@ import java.util.logging.Logger;
 public class StudentDAO {
 
     private static final String INSERTQUERY = "INSERT INTO student (name, email, password, role, membership_number) VALUES (?, ?, ?, ?, ?)";
-    private static final String GETQUERY = "SELECT name, email, password, role, membership_number FROM student WHERE id = ?";
-    private static final String UPDATEQUERY = "UPDATE student SET name = ? WHERE id = ?";
-    private static final String DELETQUERY = "DELETE FROM student WHERE id = ?";
+    private static final String GETQUERY = "SELECT name, email, password, role, membership_number FROM student WHERE student_id = ?";
+    private static final String UPDATEQUERY = "UPDATE student SET name = ? WHERE student_id = ?";
+    private static final String DELETQUERY = "DELETE FROM student WHERE student_id = ?";
     private static final String LOGINQUERY = "SELECT * FROM student WHERE membership_number = ? AND password = ?";
+    private static final String GET_EMAIL_BY_ID = "SELECT email FROM student WHERE student_id = ?";
 
     private static final Logger LOGGER = Logger.getLogger(StudentDAO.class.getName());
 
@@ -109,5 +110,19 @@ public class StudentDAO {
     public String getMembershipNumber(String name) {
         int number = (int) (Math.random() * 10000);
         return name.substring(0, Math.min(3, name.length())) + number;
+    }
+
+    public String getStudentEmailById(int studentId) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(GET_EMAIL_BY_ID)) {
+            statement.setInt(1, studentId);
+            try (ResultSet set = statement.executeQuery()) {
+                if (set.next()) {
+                    return set.getString("email");
+                }
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error occurred while fetching student email by ID", ex);
+        }
+        return null;
     }
 }
